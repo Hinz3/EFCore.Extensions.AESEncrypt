@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore.Extensions.AESEncrypt", "EFCore.Extensions.AESEncrypt\EFCore.Extensions.AESEncrypt.csproj", "{129349FD-4F17-472B-AB6A-FEE285BB68AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEstAPI", "TEstAPI\TEstAPI.csproj", "{8BC3FB24-6ADA-463A-9C30-5E6C0F8DD7F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{129349FD-4F17-472B-AB6A-FEE285BB68AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{129349FD-4F17-472B-AB6A-FEE285BB68AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{129349FD-4F17-472B-AB6A-FEE285BB68AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{129349FD-4F17-472B-AB6A-FEE285BB68AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BC3FB24-6ADA-463A-9C30-5E6C0F8DD7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC3FB24-6ADA-463A-9C30-5E6C0F8DD7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC3FB24-6ADA-463A-9C30-5E6C0F8DD7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BC3FB24-6ADA-463A-9C30-5E6C0F8DD7F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED17713E-358F-4E8A-AB43-B2EF7833FA97}
+	EndGlobalSection
+EndGlobal
