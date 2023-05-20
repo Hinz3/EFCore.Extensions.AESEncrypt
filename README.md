@@ -29,5 +29,8 @@ var result = await context.Messages.AsNoTracking().ToListDecryptAsync(encryption
 
 ### Select a single property and decrypt
 ``` C#
-var text = await context.Messages.AsNoTracking().Where(x => x.Id == id).Select(x => x.Text.Decrypt(encryptionKey)).FirstOrDefaultAsync(key);
+var result = await context.Messages.AsNoTracking()
+                                   .Where(x => x.Id == id)
+                                   .Select(x => x.Text.Decrypt(encryptionKey))
+                                   .FirstOrDefaultAsync(key);
 ```
