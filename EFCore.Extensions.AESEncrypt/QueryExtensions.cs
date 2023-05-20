@@ -136,6 +136,7 @@ public static class QueryExtensions
         }
 
         var entity = await source.FirstOrDefaultAsync(cancellationToken);
+        
         return DecryptEntity(entity, encryptionKey);
     }
 
@@ -159,6 +160,7 @@ public static class QueryExtensions
         }
 
         var entity = await source.FirstOrDefaultAsync(predicate, cancellationToken);
+
         return DecryptEntity(entity, encryptionKey);
     }
 
@@ -229,7 +231,7 @@ public static class QueryExtensions
                 continue;
             }
 
-            var encryptedValue = property.GetValue(entity, null).Encrypt(property, encryptionKey);
+            var encryptedValue = property.GetValue(entity, null).EncryptValue(property, encryptionKey);
             property.SetValue(entity, encryptedValue);
         }
     }
@@ -257,7 +259,7 @@ public static class QueryExtensions
                 continue;
             }
 
-            var encryptedValue = property.GetValue(entity, null).Decrypt(property, encryptionKey);
+            var encryptedValue = property.GetValue(entity, null).DecryptValue(property, encryptionKey);
             property.SetValue(entity, encryptedValue);
         }
 

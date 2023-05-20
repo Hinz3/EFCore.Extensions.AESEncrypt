@@ -5,7 +5,41 @@ namespace EFCore.Extensions.AESEncrypt;
 
 public static class EncryptionExtensions
 {
-    public static object Encrypt(this object value, PropertyInfo property, string key)
+    public static string Encrypt(this string value, string key)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return null;
+        }
+
+        try
+        {
+            return value.EncryptString(key);
+        }
+        catch (Exception)
+        {
+            return value;
+        }
+    }
+
+    public static string Decrypt(this string value, string key)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return null;
+        }
+
+        try
+        {
+            return value.DecryptString(key);
+        }
+        catch (Exception)
+        {
+            return value;
+        }
+    }
+
+    public static object EncryptValue(this object value, PropertyInfo property, string key)
     {
         if (value == null)
         {
@@ -27,7 +61,7 @@ public static class EncryptionExtensions
         }
     }
 
-    public static object Decrypt(this object value, PropertyInfo property, string key)
+    public static object DecryptValue(this object value, PropertyInfo property, string key)
     {
         if (value == null)
         {
@@ -41,7 +75,7 @@ public static class EncryptionExtensions
 
         try
         {
-            return value.ToString().DecrpytString(key);
+            return value.ToString().DecryptString(key);
         }
         catch
         {
@@ -49,7 +83,13 @@ public static class EncryptionExtensions
         }
     }
 
-    public static string EncryptString(this string str, string key)
+    /// <summary>
+    /// Encrypt string using AES mode CBC and Padding PKCS7
+    /// </summary>
+    /// <param name="str">String to encrypt</param>
+    /// <param name="key">Key to encrypt</param>
+    /// <returns>Encrypted value in base64 encoded</returns>
+    private static string EncryptString(this string str, string key)
     {
         byte[] encrypted;
         using var aes = Aes.Create();
@@ -73,7 +113,13 @@ public static class EncryptionExtensions
         return Convert.ToBase64String(encrypted);
     }
 
-    public static string DecrpytString(this string str, string key)
+    /// <summary>
+    /// Decrypt string using AES mode CBC and Padding PKCS7
+    /// </summary>
+    /// <param name="str">Base64 encoded string</param>
+    /// <param name="key">Key to decrypt</param>
+    /// <returns>Decrypted value</returns>
+    private static string DecryptString(this string str, string key)
     {
         if (string.IsNullOrEmpty(str))
         {
@@ -89,12 +135,12 @@ public static class EncryptionExtensions
         aes.Padding = PaddingMode.PKCS7;
 
         using MemoryStream msDecryptor = new(cipherText);
-        
+
         byte[] readIV = new byte[16];
         msDecryptor.Read(readIV, 0, 16);
-        
+
         aes.IV = readIV;
-        
+
         ICryptoTransform decoder = aes.CreateDecryptor();
 
         using CryptoStream csDecryptor = new(msDecryptor, decoder, CryptoStreamMode.Read);
