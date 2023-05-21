@@ -56,6 +56,31 @@ public static class QueryExtensions
     /// <param name="context"></param>
     /// <param name="entities"></param>
     /// <param name="encryptionKey"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException">Throws if encryption key is not set</exception>
+    public static void AddRangeEncrypt<TEntity>(this DbContext context, List<TEntity> entities, string encryptionKey)
+        where TEntity : class
+    {
+        if (string.IsNullOrEmpty(encryptionKey))
+        {
+            throw new ArgumentNullException(nameof(encryptionKey), "Missing encryption key");
+        }
+
+        foreach (var entity in entities)
+        {
+            EncryptEntity(entity, encryptionKey);
+        }
+
+        context.AddRange(entities);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="context"></param>
+    /// <param name="entities"></param>
+    /// <param name="encryptionKey"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException">Throws if encryption key is not set</exception>
@@ -170,6 +195,32 @@ public static class QueryExtensions
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="source"></param>
     /// <param name="encryptionKey"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException">Throws if encryption key is not set</exception>
+    public static List<TEntity> ToListDecrypt<TEntity>(this IQueryable<TEntity> source, string encryptionKey)
+        where TEntity : class
+    {
+        if (string.IsNullOrEmpty(encryptionKey))
+        {
+            throw new ArgumentNullException(nameof(encryptionKey), "Missing encryption key");
+        }
+
+        var entities = source.ToList();
+
+        foreach (var entity in entities)
+        {
+            DecryptEntity(entity, encryptionKey);
+        }
+
+        return entities;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="source"></param>
+    /// <param name="encryptionKey"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException">Throws if encryption key is not set</exception>
@@ -190,6 +241,26 @@ public static class QueryExtensions
         }
 
         return entities;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="source"></param>
+    /// <param name="encryptionKey"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException">Throws if encryption key is not set</exception>
+    public static TEntity[] ToArryDecrypt<TEntity>(this IQueryable<TEntity> source, string encryptionKey)
+        where TEntity : class
+    {
+        if (string.IsNullOrEmpty(encryptionKey))
+        {
+            throw new ArgumentNullException(nameof(encryptionKey), "Missing encryption key");
+        }
+
+        var result = ToListDecrypt(source, encryptionKey);
+        return result.ToArray();
     }
 
     /// <summary>
