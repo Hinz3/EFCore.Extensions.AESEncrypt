@@ -7,7 +7,7 @@ namespace EFCore.Extensions.AESEncrypt.Tests;
 
 public class QueryExtensionsTest
 {
-    private string encryptionKey = "Zg3s4sJsqRmhG6kl7u5bVmW/HgKJMi9cu8Kv7KzU/0o=";
+    private readonly string encryptionKey = "Zg3s4sJsqRmhG6kl7u5bVmW/HgKJMi9cu8Kv7KzU/0o=";
 
     [Theory]
     [AutoMoqSQLiteData]
